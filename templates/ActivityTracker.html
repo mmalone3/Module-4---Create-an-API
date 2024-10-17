@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Tracker</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Activity Tracker</h1>
+        <form action="{{ url_for('add_activity') }}" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+            <label for="start_time">Start Time:</label>
+            <input type="text" id="start_time" name="start_time" required><br>
+            <label for="end_time">End Time:</label>
+            <input type="text" id="end_time" name="end_time" required><br>
+            <label for="duration">Duration:</label>
+            <input type="text" id="duration" name="duration" required><br>
+            <button type="submit">Add Activity</button>
+        </form>
+        
+        <form action="{{ url_for('activities_for_date') }}" method="post">
+            <label for="date">Date (YYYY-MM-DD):</label>
+            <input type="text" id="date" name="date" required><br>
+            <button type="submit">Display Activities for Date</button>
+        </form>
+        
+        <h2>Activity History</h2>
+        <div id="activity-history">
+            {% for activity in activities %}
+                <div class="activity-item">
+                    <p>ID: {{ activity.id }}</p>
+                    <p>Name: {{ activity.name }}</p>
+                    <p>Start Time: {{ activity.start_time }}</p>
+                    <p>End Time: {{ activity.end_time }}</p>
+                    <p>Duration: {{ activity.duration }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2>Current Activity</h2>
+        <div id="current-activity">
+            <p id="current-activity-name"></p>
+            <p id="current-activity-timer">00:00:00</p>
+        </div>
+    </div>
+    <script src="../static/script.js"></script>
+</body>
+</html>
